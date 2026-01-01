@@ -13,7 +13,7 @@ public class Oxono {
     private Player currentPlayer;
     private GameState state;
     private static final int INITIAL_BOARD_SIZE = 6;
-    private static final int INITIAL_BOT_LEVEL = 0;
+    private static final BotLevel INITIAL_BOT_LEVEL = BotLevel.EASY;
 
     /**
      * Constructor of the Oxono class, which initializes the game with two players,
@@ -25,13 +25,12 @@ public class Oxono {
      * set to MOVE_TOTEM.
      *
      * @see Player
-     * @see BotStrategy
+     * @see Strategy
      * @see GameState
      */
     Oxono() {
         this.playerBlack = new Player(Color.BLACK);
         this.playerPink = new Player(Color.PINK);
-        this.playerBlack.setBotBehavior(new BotStrategy());
         this.currentPlayer = playerPink;
         state = GameState.MOVE_TOTEM;
         startGame(INITIAL_BOARD_SIZE, INITIAL_BOT_LEVEL);
@@ -49,9 +48,14 @@ public class Oxono {
      * @param size     the size of the game board (number of rows and columns)
      * @param levelBot the difficulty level for the bot (should be 0 or 1)
      */
-    void startGame(int size, int levelBot) {
+    void startGame(int size, BotLevel botLevel) {
         this.board = new Board(size);
-        playerBlack.getBotBehavior().setLevel(levelBot);
+        if(botLevel == BotLevel.EASY){
+            this.playerBlack.setBotBehavior(new EasyBotStrategy());
+        }else{
+            this.playerBlack.setBotBehavior(new MediumBotStrategy());
+        }
+
     }
 
     /**

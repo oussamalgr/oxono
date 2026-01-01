@@ -64,7 +64,7 @@ class PlayerTest {
 
     @Test
     void testIsBotControlled() {
-        blackPlayer.setBotBehavior(new BotStrategy());
+        blackPlayer.setBotBehavior(new EasyBotStrategy());
         assertTrue(blackPlayer.isBotControlled());
         pinkPlayer.setBotBehavior(null);
         assertFalse(pinkPlayer.isBotControlled() );

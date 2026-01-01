@@ -11,8 +11,7 @@ class BotStrategyTest {
     @BeforeEach
     void initialize(){
         playerPink = new Player(Color.PINK);
-        playerPink.setBotBehavior(new BotStrategy());
-        playerPink.getBotBehavior().setLevel(0);
+        playerPink.setBotBehavior(new EasyBotStrategy());
     }
 
     @Test

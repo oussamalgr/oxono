@@ -9,7 +9,7 @@ import g62227.dev3.oxono.util.Command;
 public class MoveCommand implements Command {
     private Symbol totemSymbol;
     private Position oldPosition;
-    private Position position;
+    private Position newPosition;
     private Oxono oxono;
 
     /**
@@ -23,7 +23,7 @@ public class MoveCommand implements Command {
     MoveCommand(Oxono oxono, Symbol totemSymbol, Position position) {
         this.oxono = oxono;
         this.totemSymbol = totemSymbol;
-        this.position = position;
+        this.newPosition = position;
         this.oldPosition = oxono.findTotemPosition(totemSymbol);
     }
 
@@ -32,13 +32,8 @@ public class MoveCommand implements Command {
 
     @Override
     public void execute() {
-        if (oxono.isStackEmpty(totemSymbol)) {
-            oxono.setGameState(GameState.MOVE_TOTEM);
-        } else {
-            oxono.moveTotem(totemSymbol, position);
-            oxono.setGameState(GameState.SET_PIECE);
-
-        }
+        oxono.moveTotem(totemSymbol, newPosition);
+        oxono.setGameState(GameState.SET_PIECE);
 
 
 

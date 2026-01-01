@@ -37,8 +37,8 @@ public class Game implements Observable {
      * @param size     the size of the board
      * @param levelBot the difficulty level of the bot (0 or 1)
      */
-    public void startGame(int size, int levelBot) {
-        oxono.startGame(size, levelBot);
+    public void startGame(int size, BotLevel botLevel) {
+        oxono.startGame(size, botLevel);
     }
 
     /**
@@ -291,12 +291,10 @@ public class Game implements Observable {
      */
     public void undo() {
         if (canUndo()) {
-            if (isStateMove()) {
-                oxono.switchPlayer();
-            }
             cm.undo();
+            notifyObservers();
+
         }
-        notifyObservers();
     }
 
 
@@ -305,14 +303,9 @@ public class Game implements Observable {
      */
     public void redo() {
         if (canRedo()) {
-            if(isStateInsert()){
-                oxono.switchPlayer();
-            }
             cm.redo();
-
-
+            notifyObservers();
         }
-        notifyObservers();
     }
 
 

@@ -13,7 +13,6 @@ public class InsertCommand implements Command {
     private Oxono oxono;
     private Player player;
 
-    // todo : current player
 
     /**
      * Constructs an InsertCommand4 to place a piece on the board.
@@ -38,9 +37,12 @@ public class InsertCommand implements Command {
         if (oxono.getState() == GameState.SET_PIECE) {
             oxono.setPiece(position, symbol, player);
             oxono.setGameState(GameState.MOVE_TOTEM);
-        }
-        if (oxono.isBoardFull() || oxono.areAllStacksEmpty()) {
+        }else if (oxono.isBoardFull() || oxono.areAllStacksEmpty()) {
             oxono.setGameState(GameState.DRAW);
+        }else{
+            oxono.switchPlayer();
+            oxono.setGameState(GameState.MOVE_TOTEM);
+
         }
 
     }
@@ -48,6 +50,7 @@ public class InsertCommand implements Command {
     @Override
     public void unexecute() {
         oxono.removePieceAtPosition(position, player);
+        oxono.switchPlayer();
         oxono.setGameState(GameState.SET_PIECE);
 
     }

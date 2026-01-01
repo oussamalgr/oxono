@@ -1,5 +1,6 @@
 package g62227.dev3.oxono.javafx.viewFX;
 
+import g62227.dev3.oxono.model.BotLevel;
 import g62227.dev3.oxono.model.Game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -80,12 +81,12 @@ public class SettingView extends VBox {
     private void buttonConfirmSetting(Game game){
         confirmButton.setStyle("-fx-background-color:orange; -fx-text-fill:white; -fx-padding : 5 10 5 10; -fx-font-weight: bolder; -fx-font-family:'System'; -fx-font-size :12px; ");
         confirmButton.setOnAction(e -> {
-            int levelOfBot;
+            BotLevel levelOfBot;
             String ProvidedLevelBot = levelBot.getValue();
             if(ProvidedLevelBot.equalsIgnoreCase("Easy")){
-                 levelOfBot = 0;
+                 levelOfBot = BotLevel.EASY;
             }else{
-                levelOfBot = 1;
+                levelOfBot = BotLevel.MEDIUM;
             }
             game.startGame(sizeBoardChoice.getValue(),levelOfBot);
             if (mainView != null) {

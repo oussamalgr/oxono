@@ -3,42 +3,27 @@ package g62227.dev3.oxono.model;
 import java.util.List;
 import java.util.Random;
 
-class BotStrategy implements Strategy {
-    private Random random = new Random();
-    private Symbol currentSymbol;
-    private int level = -1;
+public class MediumBotStrategy implements Strategy {
 
+
+    private Symbol currentSymbol;
+    private Random random = new Random();
 
     @Override
     public Position executeMoveTotem(Oxono oxono) {
-        if (this.level == 1) {
-            Position winningPosMove = testWinningMoveForBothSymbols(oxono);
-            if (winningPosMove != null) {
-                return winningPosMove;
-            }
+        Position winningPosMove = testWinningMoveForBothSymbols(oxono);
+        if (winningPosMove != null) {
+            return winningPosMove;
         }
 
         this.currentSymbol = new Random().nextBoolean() ? Symbol.X : Symbol.O;
         List<Position> allMovePossible = oxono.getTotemMoveOptions(this.currentSymbol);
         return allMovePossible.get(random.nextInt(allMovePossible.size()));
-
     }
 
     @Override
-    public Position executeInsertPiece(Oxono oxono, Symbol symbol) {
-        Player botPlayer = oxono.getCurrentPlayer();
-        if (this.level == 1) {
-            for (Position pos : oxono.getInsertPieceOptions(symbol)) {
-                oxono.setPiece(pos, symbol, botPlayer);
-                boolean isWinningMove = oxono.checkWin(pos, symbol);
-                oxono.removePieceAtPosition(pos, botPlayer);
-                if (isWinningMove) {
-                    return pos;
-                }
-            }
-        }
-        List<Position> allInsertPossible = oxono.getInsertPieceOptions(symbol);
-        return allInsertPossible.get(random.nextInt(allInsertPossible.size()));
+    public Symbol getCurrentSymbol() {
+        return currentSymbol;
     }
 
     private Position checkWinningPlacement(Oxono oxono, Symbol symbol) {
@@ -54,6 +39,7 @@ class BotStrategy implements Strategy {
         }
         return null;
     }
+
 
     private Position testWinningMoveForBothSymbols(Oxono oxono) {
         Position oldPositionX = oxono.findTotemPosition(Symbol.X);
@@ -81,17 +67,17 @@ class BotStrategy implements Strategy {
     }
 
     @Override
-    public Symbol getCurrentSymbol() {
-        return currentSymbol;
-    }
-
-    @Override
-    public void setLevel(int lvl) {
-        if (lvl < 0 || lvl > 1) {
-            throw new IllegalArgumentException("Error : current level is  : " + lvl
-                    + " but should be 0 or 1");
+    public Position executeInsertPiece(Oxono oxono, Symbol symbolPiece) {
+        Player botPlayer = oxono.getCurrentPlayer();
+        for (Position pos : oxono.getInsertPieceOptions(symbolPiece)) {
+            oxono.setPiece(pos, symbolPiece, botPlayer);
+            boolean isWinningMove = oxono.checkWin(pos, symbolPiece);
+            oxono.removePieceAtPosition(pos, botPlayer);
+            if (isWinningMove) {
+                return pos;
+            }
         }
-        this.level = lvl;
+        List<Position> allInsertPossible = oxono.getInsertPieceOptions(symbolPiece);
+        return allInsertPossible.get(random.nextInt(allInsertPossible.size()));
     }
-
 }

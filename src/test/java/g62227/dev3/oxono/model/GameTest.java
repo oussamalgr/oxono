@@ -24,19 +24,12 @@ class GameTest {
         assertNull(game.getCaseAt(new Position(1, 0)));
     }
 
-    @Test
-    void Start_Game_wrong_bot_level_test() {
-        int boardSize = 6;
-        // bot should be 0 or 1
-        int botLevel = -1;
-        assertThrows(IllegalArgumentException.class, () -> game.startGame(boardSize, botLevel));
-    }
 
     @Test
     void Start_Game_wrong_board_size_test() {
         // boardsize should be between 2 and 9 included
         int boardSize = 10;
-        int botLevel = 1;
+        BotLevel botLevel = BotLevel.MEDIUM;
         assertThrows(IllegalArgumentException.class, () -> game.startGame(boardSize, botLevel));
     }
 
@@ -142,7 +135,7 @@ class GameTest {
 
     @Test
     void is_state_draw_when_board_full_trst() {
-        game.startGame(2, 0);
+        game.startGame(2, BotLevel.EASY);
         Totem totem = (Totem) game.getCaseAt(new Position(0, 0));
         Symbol TotemToMove = totem.getSymbol();
         game.moveTotem(TotemToMove, new Position(0, 1));
@@ -265,13 +258,13 @@ class GameTest {
 
     @Test
     void get_size_of_board_test() {
-        game.startGame(8, 1);
+        game.startGame(8, BotLevel.MEDIUM);
         assertEquals(8, game.getSizeOfBoard());
     }
 
     @Test
     void count_empty_slot_in_the_board_test() {
-        game.startGame(3, 1);
+        game.startGame(3, BotLevel.MEDIUM);
         assertEquals(7, game.countFreeBoardSlots());
     }
 

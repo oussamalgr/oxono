@@ -25,14 +25,6 @@ public interface Strategy {
      */
     Symbol getCurrentSymbol();
 
-    /**
-     * Sets the difficulty level of the bot.
-     * This method allows configuring the bot's behavior by setting its difficulty level.
-     * The level can be either 0 (easy) or 1 (normal).
-     * @param level the level of the bot, where 0 represents easy and 1 represents normal
-     * @throws IllegalArgumentException if the level is not 0 or 1
-     */
-    void setLevel(int level);
 
 
     /**

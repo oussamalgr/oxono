@@ -75,7 +75,8 @@ public class GameView {
             System.out.println("Invalid input. Please enter a valid size :");
             inputsizeBoard = scanner.nextLine();
         }
-        game.startGame(Integer.parseInt(inputsizeBoard), Integer.parseInt(inputBotLevel));
+        BotLevel botLevel = inputBotLevel.trim().equalsIgnoreCase("0") ? BotLevel.EASY : BotLevel.MEDIUM;
+        game.startGame(Integer.parseInt(inputsizeBoard), botLevel);
     }
 
     /**
