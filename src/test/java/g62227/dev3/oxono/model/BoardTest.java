@@ -20,6 +20,8 @@ class BoardTest {
 
     }
 
+
+   
     @Test
     void Totem_no_more_in_the_last_position_test(){
         Token token = board.getCellAt(2,2);
@@ -27,6 +29,9 @@ class BoardTest {
         assertNull(board.getCellAt(2,2));
 
     }
+     /**
+     * test if the totem move correctly
+     */
     @Test
     void totem_move_test(){
         Token token = board.getCellAt(2,2);
