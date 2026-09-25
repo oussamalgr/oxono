@@ -346,7 +346,6 @@ public class Game implements Observable {
         if (oxono == null) {
             throw new IllegalStateException("oxono has not been initialized yet.");
         }
-
         return oxono.countFreeBoardSlots();
     }
 
