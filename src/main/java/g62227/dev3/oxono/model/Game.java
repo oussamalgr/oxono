@@ -293,7 +293,6 @@ public class Game implements Observable {
         if (canUndo()) {
             cm.undo();
             notifyObservers();
-
         }
     }
 
