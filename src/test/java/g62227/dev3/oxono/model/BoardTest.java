@@ -29,9 +29,7 @@ class BoardTest {
         assertNull(board.getCellAt(2,2));
 
     }
-     /**
-     * test if the totem move correctly
-     */
+    
     @Test
     void totem_move_test(){
         Token token = board.getCellAt(2,2);
