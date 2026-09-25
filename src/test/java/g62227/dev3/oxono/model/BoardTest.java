@@ -37,6 +37,10 @@ class BoardTest {
         board.moveTotem(token.getSymbol(),new Position(2,3));
         assertNotNull(board.getCellAt(2,3));
     }
+
+    /**
+     * Moving the totem out of range should throws an exception
+     */
     @Test
     void MoveTotem_out_of_bound_test(){
         assertThrows(IllegalArgumentException.class, () -> board.moveTotem(Symbol.X,new Position(10,10)));
